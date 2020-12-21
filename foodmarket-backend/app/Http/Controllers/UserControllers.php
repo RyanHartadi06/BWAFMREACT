@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserControllers extends Controller
 {
@@ -15,7 +16,7 @@ class UserControllers extends Controller
      */
     public function index()
     {
-        $user = User::paginate(10);
+        $user = User::paginate(2);
         return view('users.index' , [
             'user' => $user
         ]);
@@ -41,11 +42,16 @@ class UserControllers extends Controller
     {
         $data = $request->all();
 
-        $data['picturePath'] = $request->file('picturePath')->store('assets/user'. 'public');
+        // $data['picturePath'] = $request->file('picturePath')->store('assets/user'. 'public');
+        if ($request->file('profile_photo_path')) {
+            $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
+        }
+        $data['password'] = Hash::make($request->password);
+        $data['current_team_id'] = 1;
 
         User::create($data);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User Berhasil Ditambahkan!!');
     }
 
     /**
@@ -65,9 +71,12 @@ class UserControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        return view('users.edit' , [
+            'item' => $user
+        ]);
     }
 
     /**
@@ -77,9 +86,20 @@ class UserControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
         //
+        $data = $request->all();
+
+        if ($request->file('picturePath')) {
+            $data['picturePath'] = $request->file('picturePath')->store('assets/user', 'public');
+        }
+        $data['password'] = Hash::make($request->password);
+        $data['current_team_id'] = 1;
+        // dd($data);
+        $user->update($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -88,8 +108,11 @@ class UserControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
 }
