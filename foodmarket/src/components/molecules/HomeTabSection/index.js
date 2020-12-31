@@ -1,6 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import {
+  DummyProfile1,
+  DummyProfile2,
+  DummyProfile3,
+  DummyProfile4,
+  DummyProfile5
+} from '../../../assets';
+import ItemListFood from '../ItemListFood';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -13,9 +21,33 @@ const renderTabBar = (props) => (
     )}
   />
 );
-const FirstRoute = () => <View style={{backgroundColor: 'white', flex: 1}} />;
-
-const SecondRoute = () => <View style={{backgroundColor: 'white', flex: 1}} />;
+const NewTaste = () => {
+  return (
+    <View style={{paddingTop: 8}}>
+      <ItemListFood image={DummyProfile1}/>
+      <ItemListFood image={DummyProfile3}/>
+      <ItemListFood image={DummyProfile5}/>
+    </View>
+  );
+};
+const Popular = () => {
+  return (
+    <View style={{paddingTop: 8}}>
+      <ItemListFood image={DummyProfile3}/>
+      <ItemListFood image={DummyProfile4}/>
+      <ItemListFood image={DummyProfile5}/>
+    </View>
+  );
+};
+const Recommended = () => {
+  return (
+    <View style={{paddingTop: 8}}>
+      <ItemListFood image={DummyProfile1}/>
+      <ItemListFood image={DummyProfile2}/>
+      <ItemListFood image={DummyProfile3}/>
+    </View>
+  );
+};
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -28,9 +60,9 @@ const HomeTabSection = () => {
   ]);
 
   const renderScene = SceneMap({
-    1: FirstRoute,
-    2: SecondRoute,
-    3: FirstRoute,
+    1: NewTaste,
+    2: Popular,
+    3: Recommended,
   });
   return (
     <TabView

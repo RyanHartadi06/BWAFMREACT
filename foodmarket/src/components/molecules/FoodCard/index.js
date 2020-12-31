@@ -1,23 +1,13 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { DummyProfile1, Ic_Star_Off, Ic_Star_On } from '../../../assets'
-
+import Rating from '../Rating'
 const FoodCard = ({img}) => {
     return (
         <View style={styles.container}>
             <Image source={img} style={styles.foto}/>
             <View style={styles.content}>
                 <Text style={styles.text}>Cherry Healthy</Text>
-                    <View style={styles.ratingCantainer}>
-                        <View style={styles.starContainer}>
-                            <Ic_Star_On />
-                            <Ic_Star_On />
-                            <Ic_Star_On />
-                            <Ic_Star_On />
-                            <Ic_Star_Off />
-                            <Text>4.5</Text>
-                        </View>
-                    </View>
+                <Rating />
             </View>
         </View>
     )
@@ -42,6 +32,5 @@ const styles = StyleSheet.create({
     },
     content : {padding : 12},
     text : {fontSize : 16 , fontFamily : 'Poppins-Regular' , color : '#020202'},
-    ratingCantainer : {flexDirection : 'row'},
-    starContainer : {flexDirection : 'row'}
+ 
 })

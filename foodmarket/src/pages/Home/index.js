@@ -13,25 +13,27 @@ import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
 
 const Home = () => {
   return (
-    <View style={styles.page}>
-      <HomeProfile />
-      <View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.foodContainer}>
-            <Gap width={24} />
-            <FoodCard img={DummyProfile1} />
-            <FoodCard img={DummyProfile2} />
-            <FoodCard img={DummyProfile3} />
-            <FoodCard img={DummyProfile4} />
-            <FoodCard img={DummyProfile5} />
-            <Gap width={24} />
-          </View>
-        </ScrollView>
+    <ScrollView>
+      <View style={styles.page}>
+        <HomeProfile />
+        <View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.foodContainer}>
+              <Gap width={24} />
+              <FoodCard img={DummyProfile1} />
+              <FoodCard img={DummyProfile2} />
+              <FoodCard img={DummyProfile3} />
+              <FoodCard img={DummyProfile4} />
+              <FoodCard img={DummyProfile5} />
+              <Gap width={24} />
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.tabContainer}>
+          <HomeTabSection />
+        </View>
       </View>
-      <View style={styles.tabContainer}>
-        <HomeTabSection />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
