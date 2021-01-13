@@ -9,6 +9,7 @@ import Order from './Order';
 import FoodDetail from './FoodDetail';
 import OrderSummary from './OrderSummary';
 import SuccessOrderPage from './SuccessOrderPage';
+import OrderDetail from './OrderDetail';
 
 export {
     SplashScreen,
@@ -21,5 +22,6 @@ export {
     Order,
     FoodDetail,
     OrderSummary,
-    SuccessOrderPage
+    SuccessOrderPage,
+    OrderDetail
 }

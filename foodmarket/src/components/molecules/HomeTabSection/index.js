@@ -26,9 +26,9 @@ const NewTaste = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8 , paddingHorizontal : 24 }}>
-      <ItemListFood rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
@@ -36,9 +36,9 @@ const Popular = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8 , paddingHorizontal : 24}}>
-      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile4} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile4} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
@@ -46,9 +46,9 @@ const Recommended = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8 , paddingHorizontal : 24}}>
-      <ItemListFood rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile2} onPress={() => navigation.navigate('FoodDetail')} />
-      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile2} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood name="Soup Bumil" price="2.000.000" type="product" rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
