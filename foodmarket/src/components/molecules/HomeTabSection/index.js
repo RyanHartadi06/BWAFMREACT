@@ -9,6 +9,7 @@ import {
   DummyProfile5
 } from '../../../assets';
 import ItemListFood from '../ItemListFood';
+import {useNavigation} from '@react-navigation/native'
 
 const renderTabBar = (props) => (
   <TabBar
@@ -22,29 +23,32 @@ const renderTabBar = (props) => (
   />
 );
 const NewTaste = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood image={DummyProfile1}/>
-      <ItemListFood image={DummyProfile3}/>
-      <ItemListFood image={DummyProfile5}/>
+    <View style={{paddingTop: 8 , paddingHorizontal : 24 }}>
+      <ItemListFood rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
 const Popular = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood image={DummyProfile3}/>
-      <ItemListFood image={DummyProfile4}/>
-      <ItemListFood image={DummyProfile5}/>
+    <View style={{paddingTop: 8 , paddingHorizontal : 24}}>
+      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile4} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile5} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
 const Recommended = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood image={DummyProfile1}/>
-      <ItemListFood image={DummyProfile2}/>
-      <ItemListFood image={DummyProfile3}/>
+    <View style={{paddingTop: 8 , paddingHorizontal : 24}}>
+      <ItemListFood rating={3} image={DummyProfile1} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile2} onPress={() => navigation.navigate('FoodDetail')} />
+      <ItemListFood rating={3} image={DummyProfile3} onPress={() => navigation.navigate('FoodDetail')} />
     </View>
   );
 };
@@ -71,6 +75,7 @@ const HomeTabSection = () => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
+      style={{ backgroundColor : 'white' }}
     />
   );
 };

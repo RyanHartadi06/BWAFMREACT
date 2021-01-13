@@ -23,7 +23,7 @@ const SuccessSignUp = ({navigation}) => {
 export default SuccessSignUp
 
 const styles = StyleSheet.create({
-    page : { flex : 1 , justifyContent : 'center' , alignItems : 'center'},
+    page : { flex : 1 , justifyContent : 'center' , alignItems : 'center',   backgroundColor : 'white'},
     title : {fontSize : 20 , fontFamily : 'Poppins-Regular' , color:'#020202' },
     subTitle : {fontSize : 14 , fontFamily : 'Poppins-Light' , color:'#8D92A3' },
     btnContainer : { width : '100%' , paddingHorizontal: 80}

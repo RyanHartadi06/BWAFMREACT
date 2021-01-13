@@ -1,8 +1,10 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import Rating from '../Rating'
-const FoodCard = ({img}) => {
+const FoodCard = ({img , onPress}) => {
     return (
+        <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
         <View style={styles.container}>
             <Image source={img} style={styles.foto}/>
             <View style={styles.content}>
@@ -10,6 +12,7 @@ const FoodCard = ({img}) => {
                 <Rating />
             </View>
         </View>
+        </TouchableOpacity>
     )
 }
 
