@@ -8,5 +8,6 @@ import IcProfileOff from './ic-profile-off.svg';
 import IcProfileOn from './ic-profile-on.svg';
 import IcButtonMin from './ic-button-min.svg';
 import IcButtonPlus from './ic-button-plus.svg';
+import IcNext from './ic-next.svg';
 
-export {Ic_Back , IcHomeOff, IcHomeOn , IcOrderOff ,IcOrderOn ,IcProfileOff , IcProfileOn , Ic_Back_White , IcButtonMin , IcButtonPlus}
+export {Ic_Back , IcHomeOff, IcHomeOn , IcOrderOff ,IcOrderOn ,IcProfileOff , IcProfileOn , Ic_Back_White , IcButtonMin , IcButtonPlus , IcNext}
