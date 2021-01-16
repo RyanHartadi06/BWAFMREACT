@@ -1,26 +1,47 @@
-import React , { useState } from 'react';
+import axios from 'axios';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, TextInput} from '../../components';
 import {Header} from '../../components/molecules';
+import {useForm} from '../../utils';
 
 const SignIn = ({navigation}) => {
-    const [email , setEmail] = useState('');
-    const [password , setPassword] = useState('');
-
-    const onSubmit = () => {
-        console.log(email , password);
-    }
+  // const [email , setEmail] = useState('');
+  // const [password , setPassword] = useState('');
+  const [form, setForm] = useForm({
+    email: '',
+    password: '',
+  });
+  const onSubmit = () => {
+    console.log(form);
+    axios.post('http://foodmarket.nuzul.space/api/login',form).then((res) => {
+      console.log('success',res);
+    }).catch((err) => {
+      console.log('err' , err);
+    })
+  };
   return (
     <View style={styles.page}>
       <Header title="Sign In" subtitle="Find your best meal" />
       <View style={styles.container}>
-        <TextInput label="Email" pl="Type your email address" value={email} onChangeText={(value) => setEmail(value)}  />
+        <TextInput
+          label="Email"
+          pl="Type your email address"
+          value={form.email}
+          onChangeText={(value) => setForm('email', value)}
+        />
         <Gap height={16} />
-        <TextInput label="Password" pl="Type your password" value={password} onChangeText={(value) => setPassword(value)} secureTextEntry />
+        <TextInput
+          label="Password"
+          pl="Type your password"
+          value={form.password}
+          onChangeText={(value) => setForm('password', value)}
+          secureTextEntry
+        />
         <Gap height={24} />
         <Button
           title="Sign In"
-          onPress={() => navigation.navigate('MainApp')}
+          onPress={onSubmit}
         />
         <Gap height={12} />
         <Button
