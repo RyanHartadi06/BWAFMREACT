@@ -1,22 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-const Select = () => {
+const Select = ({label, value, onSelectChange}) => {
   return (
     <View>
-      <Text style={styles.label}>City</Text>
+      <Text style={styles.label}>{label}</Text>
       <View style={styles.input}>
         <Picker
-            // selectedValue={this.state.language}
-            // style={{height: 50, width: 100}}
-            // onValueChange={(itemValue, itemIndex) =>
-            //   this.setState({language: itemValue})
-            // }
-            >
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
+          selectedValue={value}
+          onValueChange={(itemValue) => onSelectChange(itemValue)}>
+          <Picker.Item label="Jember" value="Jember" />
+          <Picker.Item label="Bandung" value="Bandung" />
+          <Picker.Item label="Jakarta" value="Jakarta" />
+          <Picker.Item label="Surabaya" value="Surabaya" />
+          <Picker.Item label="Yogyakarta" value="Yogyakarta" />
         </Picker>
-
       </View>
     </View>
   );
@@ -25,6 +23,12 @@ const Select = () => {
 export default Select;
 
 const styles = StyleSheet.create({
-    label : {fontSize : 14 , fontFamily : 'Poppins-Regular' , color:'#020202'},
-    input : {borderWidth : 1 , borderColor : '#020202' , borderRadius : 8 , paddingHorizontal : 2 , paddingVertical: 0}
+  label: {fontSize: 14, fontFamily: 'Poppins-Regular', color: '#020202'},
+  input: {
+    borderWidth: 1,
+    borderColor: '#020202',
+    borderRadius: 8,
+    paddingHorizontal: 2,
+    paddingVertical: 0,
+  },
 });
