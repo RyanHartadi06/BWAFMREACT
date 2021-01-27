@@ -28,12 +28,12 @@ const SignUpAddress = ({navigation}) => {
         navigation.navigate('SuccessSignUp');
       })
       .catch((err) => {
-        showToast(err?.response?.data?.message);
+        showToast(err?.response?.data?.data?.message);
       });
     //
   };
 
-  const showToast = ({message, type}) => {
+  const showToast = (message, type) => {
     showMessage({
       message,
       type: type === 'success' ? 'success' : 'danger',
