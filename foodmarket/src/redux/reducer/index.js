@@ -1,7 +1,11 @@
 import {combineReducers} from 'redux';
-import {registerReducer} from './auth';
+import {registerReducer, uploadReducer} from './auth';
 import {globalReducer} from './global';
 
-const reducer = combineReducers({registerReducer, globalReducer});
+const reducer = combineReducers({
+  registerReducer,
+  globalReducer,
+  uploadReducer,
+});
 
 export default reducer;

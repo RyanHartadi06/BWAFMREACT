@@ -1,3 +1,5 @@
-import useForm from './useForm'
+import useForm from './useForm';
 
-export {useForm}
+export * from './showMessage';
+
+export {useForm};

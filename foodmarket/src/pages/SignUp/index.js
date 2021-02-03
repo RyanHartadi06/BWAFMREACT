@@ -1,8 +1,16 @@
-import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Header, Button, Gap, TextInput} from '../../components';
 import {useSelector, useDispatch} from 'react-redux';
-import {useForm} from '../../utils';
+import {showMessage, useForm} from '../../utils';
+import ImagePicker from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
   //   const globalState = useSelector((state) => state.globalReducer);
@@ -13,10 +21,37 @@ const SignUp = ({navigation}) => {
     email: '',
     password: '',
   });
+  const [photo, setPhoto] = useState('');
   const onSubmit = () => {
     console.log(form);
     dispatch({type: 'SET_REGISTER', value: form});
     navigation.navigate('SignUpAddress');
+  };
+  const addPhoto = () => {
+    ImagePicker.launchImageLibrary(
+      {
+        quality: 0.5,
+        maxHeight: 200,
+        maxWidth: 200,
+      },
+      (response) => {
+        // console.log('Response = ', response);
+
+        if (response.didCancel || response.error) {
+          showMessage('Anda Tidak Memilih Photo');
+        } else {
+          const source = {uri: response.uri};
+          const dataImage = {
+            uri: response.uri,
+            type: response.type,
+            name: response.fileName,
+          };
+          setPhoto(source);
+          dispatch({type: 'SET_PHOTO', value: dataImage});
+          dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        }
+      },
+    );
   };
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -24,11 +59,17 @@ const SignUp = ({navigation}) => {
         <Header title="Sign Up" subtitle="Register and eat" onBack={() => {}} />
         <View style={styles.container}>
           <View style={styles.photo}>
-            <View style={styles.borderPhoto}>
-              <View style={styles.photoContainer}>
-                <Text style={styles.addphoto}>Add Photo</Text>
+            <TouchableOpacity onPress={addPhoto}>
+              <View style={styles.borderPhoto}>
+                {photo ? (
+                  <Image source={photo} style={styles.photoContainer} />
+                ) : (
+                  <View style={styles.photoContainer}>
+                    <Text style={styles.addphoto}>Add Photo</Text>
+                  </View>
+                )}
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           {/* <Text>{`state : ${globalState.isError}`}</Text> */}
           <TextInput

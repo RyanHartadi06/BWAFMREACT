@@ -1,10 +1,9 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Header, Button, Gap, TextInput, Select} from '../../components';
-import {useForm} from '../../utils';
+import {useForm, showMessage} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
-import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -14,32 +13,55 @@ const SignUpAddress = ({navigation}) => {
     city: 'Jember',
   });
 
-  // const dispatch = useDispatch();
-  const registerReducer = useSelector((state) => state.registerReducer);
+  const dispatch = useDispatch();
+  const {registerReducer, uploadReducer} = useSelector((state) => state);
+  console.log(uploadReducer);
   const Submit = () => {
     const data = {
       ...form,
       ...registerReducer,
     };
-
+    console.log('data Register:', data);
+    dispatch({type: 'SET_LOADING', value: true});
     axios
       .post('http://foodmarket.nuzul.space/api/register', data)
       .then((res) => {
+        console.log('data success:', res.data);
+        if (uploadReducer.isUpload) {
+          const dataPhotoUpload = new FormData();
+          dataPhotoUpload.append('file', uploadReducer);
+          axios
+            .post(
+              'http://foodmarket.nuzul.space/api/user/photo',
+              dataPhotoUpload,
+              {
+                headers: {
+                  Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+                  'Content-Type': 'multipart/form-data',
+                },
+              },
+            )
+            .then((uploadResponse) => {
+              console.log(dataPhotoUpload);
+              console.log('upload success =', uploadResponse);
+            })
+            .catch((err) => {
+              console.log(dataPhotoUpload);
+              console.log('upload gagal =', err);
+              showMessage('Upload Gagal');
+            });
+        }
+        dispatch({type: 'SET_LOADING', value: false});
+        showMessage('Register Success', 'success');
         navigation.navigate('SuccessSignUp');
       })
       .catch((err) => {
-        showToast(err?.response?.data?.data?.message);
+        dispatch({type: 'SET_LOADING', value: false});
+        console.log(err);
+        showMessage(err?.response?.data?.data?.message);
       });
-    //
   };
 
-  const showToast = (message, type) => {
-    showMessage({
-      message,
-      type: type === 'success' ? 'success' : 'danger',
-      backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E',
-    });
-  };
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.page}>

@@ -1,3 +1,5 @@
+import {act} from 'react-test-renderer';
+
 const initStateRegister = {
   name: '',
   email: '',
@@ -15,5 +17,32 @@ export const registerReducer = (state = initStateRegister, action) => {
       password_confirmation: action.value.password,
     };
   }
+  return state;
+};
+
+const initPhoto = {
+  uri: '',
+  type: '',
+  name: '',
+  isUpload: false,
+};
+
+export const uploadReducer = (state = initPhoto, action) => {
+  if (action.type === 'SET_PHOTO') {
+    return {
+      ...state,
+      uri: action.value.uri,
+      type: action.value.type,
+      name: action.value.name,
+    };
+  }
+
+  if (action.type === 'SET_UPLOAD_STATUS') {
+    return {
+      ...state,
+      isUpload: action.value,
+    };
+  }
+
   return state;
 };

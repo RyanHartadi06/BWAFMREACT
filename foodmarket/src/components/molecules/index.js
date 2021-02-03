@@ -11,5 +11,21 @@ import EmptyOrderSection from './EmptyOrderSection';
 import OrderTabSection from './OrderTabSection';
 import ProfileTabSection from './ProfileTabSection';
 import ItemListMenu from './ItemListMenu';
+import Loading from './Loading';
 
-export {Header ,  BottomNavigator , FoodCard , HomeTabSection , HomeProfile , Rating , ItemListFood , Counter, ItemValue , EmptyOrderSection , OrderTabSection, ProfileTabSection , ItemListMenu}
+export {
+  Header,
+  BottomNavigator,
+  FoodCard,
+  HomeTabSection,
+  HomeProfile,
+  Rating,
+  ItemListFood,
+  Counter,
+  ItemValue,
+  EmptyOrderSection,
+  OrderTabSection,
+  ProfileTabSection,
+  ItemListMenu,
+  Loading,
+};
