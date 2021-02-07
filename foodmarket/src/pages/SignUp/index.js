@@ -13,8 +13,6 @@ import {showMessage, useForm} from '../../utils';
 import ImagePicker from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
-  //   const globalState = useSelector((state) => state.globalReducer);
-  //   console.log(globalState);
   const dispatch = useDispatch();
   const [form, setForm] = useForm({
     name: '',
@@ -28,35 +26,70 @@ const SignUp = ({navigation}) => {
     navigation.navigate('SignUpAddress');
   };
   const addPhoto = () => {
-    ImagePicker.launchImageLibrary(
+    ImagePicker.showImagePicker(
       {
         quality: 0.5,
         maxHeight: 200,
         maxWidth: 200,
       },
       (response) => {
-        // console.log('Response = ', response);
-
         if (response.didCancel || response.error) {
           showMessage('Anda Tidak Memilih Photo');
         } else {
           const source = {uri: response.uri};
+          console.log(source);
           const dataImage = {
             uri: response.uri,
             type: response.type,
             name: response.fileName,
           };
+          console.log(dataImage);
           setPhoto(source);
           dispatch({type: 'SET_PHOTO', value: dataImage});
           dispatch({type: 'SET_UPLOAD_STATUS', value: true});
         }
+
+        // ImagePicker.launchImageLibrary((response) => {
+        //   if (response.didCancel || response.error) {
+        //     showMessage('Anda Tidak Memilih Photo');
+        //   } else {
+        //     const source = {uri: response.uri};
+        //     const dataImage = {
+        //       uri: response.uri,
+        //       type: response.type,
+        //       name: response.fileName,
+        //     };
+        //     setPhoto(source);
+        //     dispatch({type: 'SET_PHOTO', value: dataImage});
+        //     dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        //   }
+        // });
+        // ImagePicker.launchCamera((response) => {
+        //   if (response.didCancel || response.error) {
+        //     showMessage('Anda Tidak Memilih Photo');
+        //   } else {
+        //     const source = {uri: response.uri};
+        //     const dataImage = {
+        //       uri: response.uri,
+        //       type: response.type,
+        //       name: response.fileName,
+        //     };
+        //     setPhoto(source);
+        //     dispatch({type: 'SET_PHOTO', value: dataImage});
+        //     dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        //   }
+        // });
       },
     );
   };
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.page}>
-        <Header title="Sign Up" subtitle="Register and eat" onBack={() => {}} />
+        <Header
+          title="Sign Up"
+          subtitle="Register and eat"
+          onBack={() => navigation.goBack()}
+        />
         <View style={styles.container}>
           <View style={styles.photo}>
             <TouchableOpacity onPress={addPhoto}>

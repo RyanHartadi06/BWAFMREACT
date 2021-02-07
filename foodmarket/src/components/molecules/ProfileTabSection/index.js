@@ -1,16 +1,17 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {
   DummyProfile1,
   DummyProfile2,
   DummyProfile3,
   DummyProfile4,
-  DummyProfile5
+  DummyProfile5,
 } from '../../../assets';
 import ItemListFood from '../ItemListFood';
-import {useNavigation} from '@react-navigation/native'
-import { ItemListMenu } from '..';
+import {useNavigation} from '@react-navigation/native';
+import {ItemListMenu} from '..';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -25,24 +26,30 @@ const renderTabBar = (props) => (
 );
 const Account = () => {
   const navigation = useNavigation();
+  const signOut = () => {
+    AsyncStorage.multiRemove(['userProfile', 'token']).then((res) => {
+      navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+    });
+  };
   return (
-    <View style={{paddingTop: 8 , paddingHorizontal : 24 }}>
-    <ItemListMenu title="Edit Profile"/>
-    <ItemListMenu title="Home Address"/>
-    <ItemListMenu title="Security"/>
-    <ItemListMenu title="Payments"/>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListMenu title="Edit Profile" />
+      <ItemListMenu title="Home Address" />
+      <ItemListMenu title="Security" />
+      <ItemListMenu title="Payments" />
+      <ItemListMenu title="Sign Out" onPress={signOut} />
     </View>
   );
 };
 const FoodMarket = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8 , paddingHorizontal : 24}}>
-     <ItemListMenu title="Rate App"/>
-     <ItemListMenu title="Help Center"/>
-     <ItemListMenu title="Privacy & Policy"/>
-     <ItemListMenu title="Terms & Conditions"/>
-     </View>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListMenu title="Rate App" />
+      <ItemListMenu title="Help Center" />
+      <ItemListMenu title="Privacy & Policy" />
+      <ItemListMenu title="Terms & Conditions" />
+    </View>
   );
 };
 
@@ -66,7 +73,7 @@ const ProfileTabSection = () => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
-      style={{ backgroundColor : 'white' }}
+      style={{backgroundColor: 'white'}}
     />
   );
 };

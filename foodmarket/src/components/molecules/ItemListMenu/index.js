@@ -1,27 +1,30 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { IcNext } from '../../../assets'
+import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {IcNext} from '../../../assets';
 
-const ItemListMenu = ({title}) => {
+const ItemListMenu = ({title, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{title}</Text>
-      <IcNext />
-    </View>
-  )
-}
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text style={styles.text}>{title}</Text>
+        <IcNext />
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-export default ItemListMenu
+export default ItemListMenu;
 
 const styles = StyleSheet.create({
-  container : {
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    alignItems : 'center',
-    paddingVertical : 7
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 7,
   },
-  text : {
-    fontSize : 14,
-    fontFamily : 'Poppins-Regular' , color : '#020202'
-  }
-})
+  text: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#020202',
+  },
+});

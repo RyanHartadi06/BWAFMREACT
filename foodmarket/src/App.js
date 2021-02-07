@@ -23,6 +23,8 @@ const App = () => {
     <Provider store={store}>
       <MainApp />
     </Provider>
+    // PROVIDER INI UNTUK STORE REDUX
+    // PROVIDER TIDAK BISA DI JADIKAN SATU DENGAN USE SELECTOR
   );
 };
 

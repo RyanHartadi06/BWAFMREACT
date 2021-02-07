@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Button, Gap, TextInput} from '../../components';
 import {Header} from '../../components/molecules';
+import {isLoading, signInAction} from '../../redux/action';
 import {useForm} from '../../utils';
 
 const SignIn = ({navigation}) => {
@@ -12,13 +14,9 @@ const SignIn = ({navigation}) => {
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
   const onSubmit = () => {
-    console.log(form);
-    axios.post('http://foodmarket.nuzul.space/api/login',form).then((res) => {
-      console.log('success',res);
-    }).catch((err) => {
-      console.log('err' , err);
-    })
+    dispatch(signInAction(form, navigation));
   };
   return (
     <View style={styles.page}>
@@ -39,10 +37,7 @@ const SignIn = ({navigation}) => {
           secureTextEntry
         />
         <Gap height={24} />
-        <Button
-          title="Sign In"
-          onPress={onSubmit}
-        />
+        <Button title="Sign In" onPress={onSubmit} />
         <Gap height={12} />
         <Button
           title="Create New Account"

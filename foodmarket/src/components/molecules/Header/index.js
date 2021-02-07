@@ -7,7 +7,7 @@ const Header = ({title, subtitle, onBack}) => {
   return (
     <View style={styles.container}>
       {onBack && (
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onBack}>
           <View style={styles.back}>
             <Ic_Back />
           </View>
@@ -34,5 +34,5 @@ const styles = StyleSheet.create({
   },
   title: {fontSize: 22, fontFamily: 'Poppins-Medium', color: '#020202'},
   subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'},
-  back: {padding: 16, marginRight: 16 , marginLeft : -10},
+  back: {padding: 16, marginRight: 16, marginLeft: -10},
 });

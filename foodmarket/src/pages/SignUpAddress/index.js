@@ -4,6 +4,7 @@ import {Header, Button, Gap, TextInput, Select} from '../../components';
 import {useForm, showMessage} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
+import {isLoading, signUpAction} from '../../redux/action';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -21,45 +22,49 @@ const SignUpAddress = ({navigation}) => {
       ...form,
       ...registerReducer,
     };
-    console.log('data Register:', data);
-    dispatch({type: 'SET_LOADING', value: true});
-    axios
-      .post('http://foodmarket.nuzul.space/api/register', data)
-      .then((res) => {
-        console.log('data success:', res.data);
-        if (uploadReducer.isUpload) {
-          const dataPhotoUpload = new FormData();
-          dataPhotoUpload.append('file', uploadReducer);
-          axios
-            .post(
-              'http://foodmarket.nuzul.space/api/user/photo',
-              dataPhotoUpload,
-              {
-                headers: {
-                  Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
-                  'Content-Type': 'multipart/form-data',
-                },
-              },
-            )
-            .then((uploadResponse) => {
-              console.log(dataPhotoUpload);
-              console.log('upload success =', uploadResponse);
-            })
-            .catch((err) => {
-              console.log(dataPhotoUpload);
-              console.log('upload gagal =', err);
-              showMessage('Upload Gagal');
-            });
-        }
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage('Register Success', 'success');
-        navigation.navigate('SuccessSignUp');
-      })
-      .catch((err) => {
-        dispatch({type: 'SET_LOADING', value: false});
-        console.log(err);
-        showMessage(err?.response?.data?.data?.message);
-      });
+    dispatch(isLoading(true));
+    //make Redux
+    //dalam pemanggilan redux perlu dispatch
+    dispatch(signUpAction(data, uploadReducer, navigation));
+
+    //ga make redux
+    // axios
+    //   .post('http://foodmarket.nuzul.space/api/register', data)
+    //   .then((res) => {
+    //     console.log('data success:', res.data);
+    //     if (uploadReducer.isUpload) {
+    //       const dataPhotoUpload = new FormData();
+    //       dataPhotoUpload.append('file', uploadReducer);
+    //       axios
+    //         .post(
+    //           'http://foodmarket.nuzul.space/api/user/photo',
+    //           dataPhotoUpload,
+    //           {
+    //             headers: {
+    //               Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+    //               'Content-Type': 'multipart/form-data',
+    //             },
+    //           },
+    //         )
+    //         .then((uploadResponse) => {
+    //           console.log(dataPhotoUpload);
+    //           console.log('upload success =', uploadResponse);
+    //         })
+    //         .catch((err) => {
+    //           console.log(dataPhotoUpload);
+    //           console.log('upload gagal =', err);
+    //           showMessage('Upload Gagal');
+    //         });
+    //     }
+    //     dispatch(isLoading(false));
+    //     showMessage('Register Success', 'success');
+    //     navigation.navigate('SuccessSignUp');
+    //   })
+    //   .catch((err) => {
+    //     dispatch(isLoading(false));
+    //     console.log(err);
+    //     showMessage(err?.response?.data?.data?.message);
+    //   });
   };
 
   return (
@@ -68,7 +73,7 @@ const SignUpAddress = ({navigation}) => {
         <Header
           title="Address"
           subtitle="Make sure it's valid"
-          onBack={() => {}}
+          onBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <TextInput

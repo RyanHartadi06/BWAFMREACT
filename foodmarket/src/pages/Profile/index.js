@@ -1,19 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {DummyProfile} from '../../assets';
 import {ProfileTabSection} from '../../components';
+import {getData} from '../../utils/storage';
 
 const Profile = () => {
+  const [photo, setPhoto] = useState(DummyProfile);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  useEffect(() => {
+    return () => {
+      getData('userProfile')
+        .then((res) => {
+          console.log(res);
+          setName(res.name);
+          setEmail(res.email);
+          setPhoto({uri: res.profile_photo_url});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  }, []);
   return (
     <View style={styles.page}>
       <View style={styles.profileDetail}>
         <View style={styles.photo}>
           <View style={styles.borderPhoto}>
-            <Image source={DummyProfile} style={styles.photoContainer} />
+            <Image source={photo} style={styles.photoContainer} />
           </View>
         </View>
-        <Text style={styles.name}>Angga Risky</Text>
-        <Text style={styles.email}>wepanda@gmail.com</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.email}>{email}</Text>
       </View>
       <View style={styles.content}>
         <ProfileTabSection />
@@ -26,8 +44,8 @@ export default Profile;
 
 const styles = StyleSheet.create({
   page: {flex: 1},
-  content: {flex: 1 , marginTop : 26},
-  profileDetail: {backgroundColor: 'white' , paddingBottom : 26},
+  content: {flex: 1, marginTop: 26},
+  profileDetail: {backgroundColor: 'white', paddingBottom: 26},
   name: {
     fontSize: 18,
     fontFamily: 'Poppins-Medium',

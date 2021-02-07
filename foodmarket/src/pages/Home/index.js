@@ -1,17 +1,17 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {
-  DummyProfile,
-  DummyProfile1,
-  DummyProfile2,
-  DummyProfile3,
-  DummyProfile4,
-  DummyProfile5,
-} from '../../assets';
+import {useDispatch, useSelector} from 'react-redux';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
+import {getFoodCard} from '../../redux/action';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const {food} = useSelector((state) => state.homeReducer);
+  console.log('use select' + food);
+  useEffect(() => {
+    dispatch(getFoodCard());
+  }, []);
   return (
     <ScrollView>
       <View style={styles.page}>
@@ -20,11 +20,17 @@ const Home = () => {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.foodContainer}>
               <Gap width={24} />
-              <FoodCard img={DummyProfile1} />
-              <FoodCard img={DummyProfile2} />
-              <FoodCard img={DummyProfile3} />
-              <FoodCard img={DummyProfile4} />
-              <FoodCard img={DummyProfile5} />
+
+              {food.map((itemFood) => {
+                return (
+                  <FoodCard
+                    key={itemFood.id}
+                    title={itemFood.name}
+                    img={{uri: itemFood.picturePath}}
+                    number={itemFood.rate}
+                  />
+                );
+              })}
               <Gap width={24} />
             </View>
           </ScrollView>
