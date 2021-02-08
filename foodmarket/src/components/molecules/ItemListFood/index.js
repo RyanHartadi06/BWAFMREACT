@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Number} from '..';
 
 import Rating from '../Rating';
 
@@ -20,7 +21,7 @@ const ItemListFood = ({
   type,
   name,
   date,
-  status
+  status,
 }) => {
   const renderContent = () => {
     switch (type) {
@@ -30,9 +31,10 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
-              <Text style={styles.idr}> IDR {price}</Text>
+              <Number number={price} style={styles.idr} />
+              {/* <Text style={styles.idr}> IDR {price}</Text> */}
             </View>
-            <Rating rating={rating} />
+            <Rating number={rating} />
           </>
         );
       case 'order-summary':
@@ -41,7 +43,7 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
-              <Text style={styles.idr}> IDR {price}</Text>
+              <Number number={price} style={styles.idr} />
             </View>
             <Text style={styles.items}>{items} items</Text>
           </>
@@ -80,7 +82,7 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
-              <Text style={styles.idr}> IDR {price}</Text>
+              <Number number={price} style={styles.idr} />
             </View>
             <Rating />
           </>
@@ -132,10 +134,14 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  date : {
-    fontSize : 10, fontFamily : 'Poppins-Regular' , color : '#8D92A3'
+  date: {
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: '#8D92A3',
   },
-  status : {
-    fontSize : 10, fontFamily : 'Poppins-Regular' , color : '#D9435E'
-  }
+  status: {
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: '#D9435E',
+  },
 });

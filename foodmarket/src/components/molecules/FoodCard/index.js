@@ -4,7 +4,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Rating from '../Rating';
 const FoodCard = ({img, onPress, title, number}) => {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container}>
         <Image source={img} style={styles.foto} />
         <View style={styles.content}>

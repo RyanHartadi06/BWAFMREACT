@@ -1,37 +1,82 @@
-import React from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {DummyProfile6, Ic_Back_White} from '../../assets';
-import {Button, Rating , Counter} from '../../components';
-const FoodDetail = ({navigation}) => {
+import {Button, Rating, Counter, Number} from '../../components';
+import {getData} from '../../utils/storage';
+const FoodDetail = ({navigation, route}) => {
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    getData('userProfile').then((res) => {
+      setUserProfile(res);
+    });
+  }, []);
+  const {
+    name,
+    rate,
+    description,
+    ingredients,
+    picturePath,
+    price,
+  } = route.params;
+  const [totalItem, setTotalItem] = useState(1);
+  const onCounterChange = (value) => {
+    setTotalItem(value);
+  };
+  const onOrderNow = () => {
+    const totalPrice = totalItem * price;
+    const driver = 50000;
+    const tax = (10 / 100) * totalPrice;
+    const total = totalPrice + driver + tax;
+    const data = {
+      item: {
+        name: name,
+        price: price,
+        picturePath: picturePath,
+      },
+      transaction: {
+        totalItem: totalItem,
+        totalPrice: totalPrice,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+    navigation.navigate('OrderSummary', data);
+  };
   return (
     <View style={styles.page}>
-      <ImageBackground source={DummyProfile6} style={styles.img}>
-        <Ic_Back_White />
+      <ImageBackground source={{uri: picturePath}} style={styles.img}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ic_Back_White />
+        </TouchableOpacity>
       </ImageBackground>
       <View style={styles.content}>
         <View style={styles.mainContent}>
           <View style={styles.productContainer}>
             <View>
-              <Text style={styles.title}>Cherry Healthy</Text>
-              <Rating />
+              <Text style={styles.title}>{name}</Text>
+              <Rating number={rate} />
             </View>
-           <Counter />
+            <Counter onValueChange={onCounterChange} />
           </View>
-          <Text style={styles.desc}>
-            Makanan khas Bandung yang cukup sering dipesan oleh anak muda dengan
-            pola makan yang cukup tinggi dengan mengutamakan diet yang sehat dan
-            teratur.
-          </Text>
+          <Text style={styles.desc}>{description}</Text>
           <Text style={styles.label}>Ingredients:</Text>
-          <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text>
+          <Text style={styles.desc}>{ingredients}</Text>
         </View>
         <View style={styles.footer}>
           <View style={styles.priceContainer}>
             <Text style={styles.labeltotal}>Total Price:</Text>
-            <Text style={styles.pricetotal}>IDR 12.289.000</Text>
+            <Number number={totalItem * price} style={styles.pricetotal} />
           </View>
           <View style={styles.btn}>
-            <Button title="Order Now" onPress={() => navigation.navigate('OrderSummary')}/>
+            <Button title="Order Now" onPress={onOrderNow} />
           </View>
         </View>
       </View>
@@ -63,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 14,
   },
-  mainContent : {flex :1}, 
+  mainContent: {flex: 1},
   title: {fontSize: 16, fontFamily: 'Poppins-Regular', color: '#020202'},
   desc: {
     fontSize: 14,
@@ -72,9 +117,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {fontSize: 14, fontFamily: 'Poppins-Regular', marginBottom: 4},
-  footer : {flexDirection : 'row'  , paddingVertical : 16 , alignItems : 'center' },
-  btn : {width : 163},
-  priceContainer : {flex : 1},
-  labeltotal : {fontSize : 13 , fontFamily : 'Poppins-Regular' , color : '#8D92A3'},
-  pricetotal : {fontSize : 18 , fontFamily : 'Poppins-Regular' , color :  '#020202'}
+  footer: {flexDirection: 'row', paddingVertical: 16, alignItems: 'center'},
+  btn: {width: 163},
+  priceContainer: {flex: 1},
+  labeltotal: {fontSize: 13, fontFamily: 'Poppins-Regular', color: '#8D92A3'},
+  pricetotal: {fontSize: 18, fontFamily: 'Poppins-Regular', color: '#020202'},
 });

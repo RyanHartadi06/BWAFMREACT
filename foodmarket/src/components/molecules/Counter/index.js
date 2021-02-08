@@ -1,17 +1,36 @@
 import React from 'react';
+import {useEffect} from 'react';
+import {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {IcButtonMin, IcButtonPlus} from '../../../assets';
 
-const Counter = () => {
+const Counter = ({onValueChange}) => {
+  const [value, setValue] = useState(1);
+  useEffect(() => {
+    onValueChange(value);
+  }, []);
+  const onCount = (type) => {
+    let res = value;
+    if (type === 'plus') {
+      res = value + 1;
+    }
+    if (type === 'minus') {
+      if (value > 1) {
+        res = value - 1;
+      }
+    }
+    setValue(res);
+    onValueChange(res);
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onCount('minus')}>
         <IcButtonMin />
       </TouchableOpacity>
-      <Text style={styles.value}>14</Text>
+      <Text style={styles.value}>{value}</Text>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onCount('plus')}>
         <IcButtonPlus />
       </TouchableOpacity>
     </View>

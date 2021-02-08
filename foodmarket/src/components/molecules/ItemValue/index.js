@@ -1,19 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import Number from '../Number';
 
-const ItemValue = ({label , value , valueColor="#020202"}) => {
+const ItemValue = ({label, value, valueColor = '#020202', type}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <Text style={styles.sub(valueColor)}>{value}</Text>
+      {type === 'currency' ? (
+        <Number number={value} style={styles.sub(valueColor)} />
+      ) : (
+        <Text style={styles.sub(valueColor)}>{value}</Text>
+      )}
     </View>
-  )
-}
+  );
+};
 
-export default ItemValue
+export default ItemValue;
 
 const styles = StyleSheet.create({
-  container : {flexDirection : 'row' , justifyContent : 'space-between'},
-  label : { fontSize  : 14 , fontFamily : 'Poppins-Reguler' , color : '#8D92A3'},
-  sub :(color)=> ({ fontSize  : 14 , fontFamily : 'Poppins-Reguler' , color : color}),
-})
+  container: {flexDirection: 'row', justifyContent: 'space-between'},
+  label: {fontSize: 14, fontFamily: 'Poppins-Reguler', color: '#8D92A3'},
+  sub: (color) => ({fontSize: 14, fontFamily: 'Poppins-Reguler', color: color}),
+});

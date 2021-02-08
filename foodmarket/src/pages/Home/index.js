@@ -5,10 +5,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
 import {getFoodCard} from '../../redux/action';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector((state) => state.homeReducer);
-  console.log('use select' + food);
   useEffect(() => {
     dispatch(getFoodCard());
   }, []);
@@ -28,6 +27,7 @@ const Home = () => {
                     title={itemFood.name}
                     img={{uri: itemFood.picturePath}}
                     number={itemFood.rate}
+                    onPress={() => navigation.navigate('FoodDetail', itemFood)}
                   />
                 );
               })}
