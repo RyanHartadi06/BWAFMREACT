@@ -3,20 +3,20 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {DummyProfile} from '../../../assets';
 import {getData} from '../../../utils/storage';
 
-const HomeProfile = () => {
-  const [photo, setPhoto] = useState(DummyProfile);
-  useEffect(() => {
-    return () => {
-      getData('userProfile')
-        .then((res) => {
-          console.log('data respon' + res);
-          setPhoto({uri: res.profile_photo_url});
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-  }, []);
+const HomeProfile = ({photo}) => {
+  // const [photo, setPhoto] = useState(DummyProfile);
+  // useEffect(() => {
+  //   return () => {
+  //     getData('userProfile')
+  //       .then((res) => {
+  //         console.log('data respon' + res);
+  //         setPhoto({uri: res.profile_photo_url});
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+  // }, []);
   return (
     <View style={styles.profileComponent}>
       <View>

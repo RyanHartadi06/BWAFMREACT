@@ -32,7 +32,6 @@ const ItemListFood = ({
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
               <Number number={price} style={styles.idr} />
-              {/* <Text style={styles.idr}> IDR {price}</Text> */}
             </View>
             <Rating number={rating} />
           </>
@@ -54,24 +53,29 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
-              <Text style={styles.idr}>
-                {items} items. IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.idr}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.idr} />
+              </View>
             </View>
           </>
         );
       case 'past-orders':
+        const formatedDate = new Date(date).toDateString();
         return (
           <>
             <View style={styles.content}>
               <Text style={styles.text}>{name}</Text>
-              <Text style={styles.idr}>
-                {items} items. IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.idr}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.idr} />
+              </View>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
-              <Text style={styles.status}>{status}</Text>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );
@@ -139,9 +143,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#8D92A3',
   },
-  status: {
+  status: (status) => ({
     fontSize: 10,
     fontFamily: 'Poppins-Regular',
-    color: '#D9435E',
+    color: status === 'CANCELLED' ? '#D9435E' : '#1ABC9C',
+  }),
+  row: {flexDirection: 'row', alignItems: 'center'},
+  dot: {
+    width: 3,
+    height: 3,
+    borderRadius: 3,
+    backgroundColor: '#8D92A3',
+    marginHorizontal: 4,
   },
 });
